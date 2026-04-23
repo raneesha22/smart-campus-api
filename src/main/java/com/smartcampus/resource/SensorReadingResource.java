@@ -44,6 +44,18 @@ public class SensorReadingResource {
     public List<SensorReading> getReadings() {
         return store.getReadings(sensorId);
     }
+    
+    //Get individual reading by ID
+    
+    @GET
+    @Path("/{readingId}")
+    public SensorReading getReading(@PathParam("readingId") String readingId) {
+        return store.getReadings(sensorId).stream()
+                .filter(r -> r.getId().equals(readingId))
+                .findFirst()
+                .orElseThrow(() -> new NotFoundException(
+                    "Reading '" + readingId + "' not found for sensor '" + sensorId + "'."));
+    }
 
     /**
      * POST /sensors/{sensorId}/readings — Record a new reading.
@@ -89,3 +101,5 @@ public class SensorReadingResource {
         return Response.status(Response.Status.CREATED).entity(reading).build();
     }
 }
+
+
