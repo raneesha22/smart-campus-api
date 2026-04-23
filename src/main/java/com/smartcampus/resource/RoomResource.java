@@ -101,4 +101,17 @@ public class RoomResource {
         store.removeRoom(roomId);
         return Response.noContent().build();
     }
+    
+    @PUT
+@Path("/{roomId}")
+@Consumes(MediaType.APPLICATION_JSON)
+public Room updateRoom(@PathParam("roomId") String roomId, Room updated) {
+    Room existing = store.getRoom(roomId);
+    if (existing == null) {
+        throw new NotFoundException("Room '" + roomId + "' not found.");
+    }
+    if (updated.getName() != null) existing.setName(updated.getName());
+    if (updated.getCapacity() > 0) existing.setCapacity(updated.getCapacity());
+    return existing;
+}
 }
