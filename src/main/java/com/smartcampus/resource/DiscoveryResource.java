@@ -42,5 +42,14 @@ public class DiscoveryResource {
         response.put("endpoints", docs);
 
         return response;
+ 
     }
+    
+    @GET
+@Path("/test-error")
+public Response testError() {
+    // Deliberately trigger an unhandled exception to demonstrate
+    // that the GlobalExceptionMapper catches it cleanly
+    throw new RuntimeException("Simulated unexpected server failure");
+}
 }
