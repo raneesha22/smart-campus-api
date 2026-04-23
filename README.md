@@ -170,6 +170,33 @@ curl -s -X POST http://localhost:8080/api/v1/sensors/LIGHT-001/readings \
   -d '{"value":500.0}' | python3 -m json.tool
 ```
 
+### 9.Update a Room
+
+```bash
+curl -X PUT http://localhost:8080/api/v1/rooms/LIB-301 \
+     -H "Content-Type: application/json" \
+     -d '{"name": "Main Library South", "capacity": 55}'
+```
+
+### 10.Update a sensor Status(PUT)
+
+```bash
+curl -X PUT http://localhost:8080/api/v1/sensors/LIGHT-001 \
+     -H "Content-Type: application/json" \
+     -d '{"status": "MAINTENANCE"}'
+```
+
+### 11.Get a specific reading
+
+```bash
+curl -X GET http://localhost:8080/api/v1/sensors/SN-101/readings/READING-ID-HERE
+```
+
+### 12.Trigger a 500 Error
+
+```bash
+curl -X GET http://localhost:8080/api/v1/test-error
+```
 ---
 
 ## Conceptual Questions & Answers
