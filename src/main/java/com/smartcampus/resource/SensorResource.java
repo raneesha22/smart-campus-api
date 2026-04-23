@@ -161,4 +161,18 @@ public class SensorResource {
         }
         return new SensorReadingResource(sensorId);
     }
+    
+    @PUT
+@Path("/{sensorId}")
+@Consumes(MediaType.APPLICATION_JSON)
+public Sensor updateSensor(@PathParam("sensorId") String sensorId, Sensor updated) {
+    Sensor existing = store.getSensor(sensorId);
+    if (existing == null) {
+        throw new NotFoundException("Sensor '" + sensorId + "' not found.");
+    }
+    if (updated.getType() != null) existing.setType(updated.getType());
+    if (updated.getStatus() != null) existing.setStatus(updated.getStatus());
+    return existing;
+}
+    
 }
