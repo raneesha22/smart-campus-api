@@ -8,6 +8,7 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -32,6 +33,7 @@ public class DiscoveryResource {
         Map<String, String> resources = new LinkedHashMap<>();
         resources.put("rooms", "/api/v1/rooms");
         resources.put("sensors", "/api/v1/sensors");
+        resources.put("test_error", "/api/v1/test-error");
         response.put("resources", resources);
 
         Map<String, String> docs = new LinkedHashMap<>();
@@ -45,11 +47,12 @@ public class DiscoveryResource {
  
     }
     
+    //500 Error Trigger 
     @GET
-@Path("/test-error")
-public Response testError() {
-    // Deliberately trigger an unhandled exception to demonstrate
-    // that the GlobalExceptionMapper catches it cleanly
-    throw new RuntimeException("Simulated unexpected server failure");
-}
+    @Path("/test-error")
+    public Response testError() {
+        // Deliberately trigger an unhandled exception to demonstrate
+        // that the GlobalExceptionMapper catches it cleanly
+        throw new RuntimeException("Simulated unexpected server failure");
+    }
 }

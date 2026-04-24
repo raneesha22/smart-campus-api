@@ -109,6 +109,23 @@ public class SensorResource {
         }
         return sensor;
     }
+    
+    
+    //update sensor metadata 
+    // toggle status between ACTIVE to MAINTENANCE for testing.
+    
+    @PUT
+    @Path("/{sensorId}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Sensor updateSensor(@PathParam("sensorId") String sensorId, Sensor updated) {
+        Sensor existing = store.getSensor(sensorId);
+        if (existing == null) {
+            throw new NotFoundException("Sensor '" + sensorId + "' not found.");
+        }
+        if (updated.getType() != null) existing.setType(updated.getType());
+        if (updated.getStatus() != null) existing.setStatus(updated.getStatus());
+        return existing;
+}
 
     /**
      * DELETE /sensors/{sensorId} — Remove a sensor.
@@ -160,19 +177,6 @@ public class SensorResource {
             throw new NotFoundException("Sensor '" + sensorId + "' not found.");
         }
         return new SensorReadingResource(sensorId);
-    }
-    
-    @PUT
-@Path("/{sensorId}")
-@Consumes(MediaType.APPLICATION_JSON)
-public Sensor updateSensor(@PathParam("sensorId") String sensorId, Sensor updated) {
-    Sensor existing = store.getSensor(sensorId);
-    if (existing == null) {
-        throw new NotFoundException("Sensor '" + sensorId + "' not found.");
-    }
-    if (updated.getType() != null) existing.setType(updated.getType());
-    if (updated.getStatus() != null) existing.setStatus(updated.getStatus());
-    return existing;
+    }    
 }
-    
-}
+
