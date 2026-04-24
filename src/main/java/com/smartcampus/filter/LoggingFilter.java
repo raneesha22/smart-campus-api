@@ -19,16 +19,7 @@ import java.util.logging.Logger;
  * Implements both ContainerRequestFilter and ContainerResponseFilter to
  * provide full API observability as a cross-cutting concern. Using a JAX-RS
  * filter is superior to manually inserting Logger.info() calls in every
- * resource method because:
- *
- * 1. Single Responsibility — logging logic lives in one class, not scattered
- *    across every endpoint.
- * 2. Consistency — every request is logged, even new endpoints added later.
- *    Manual logging requires developers to remember to add it.
- * 3. Maintainability — changing the log format or adding fields (e.g. timing)
- *    requires editing one file instead of every resource class.
- * 4. Separation of Concerns — resource methods focus on business logic,
- *    not infrastructure concerns.
+ * resource method.
  */
 @Provider
 public class LoggingFilter implements ContainerRequestFilter, ContainerResponseFilter {

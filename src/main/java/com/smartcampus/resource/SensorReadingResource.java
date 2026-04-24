@@ -37,7 +37,7 @@ public class SensorReadingResource {
     }
 
     /**
-     * GET /sensors/{sensorId}/readings — Fetch all historical readings
+     * GET /sensors/{sensorId}/readings - Fetch all historical readings
      * for this sensor, ordered by insertion time.
      */
     @GET
@@ -58,7 +58,7 @@ public class SensorReadingResource {
     }
 
     /**
-     * POST /sensors/{sensorId}/readings — Record a new reading.
+     * POST /sensors/{sensorId}/readings - Record a new reading.
      *
      * Business rules:
      * 1. The parent sensor must be in ACTIVE status. Sensors in MAINTENANCE
@@ -66,7 +66,7 @@ public class SensorReadingResource {
      * 2. A UUID is generated for the reading ID if not provided.
      * 3. The timestamp defaults to the current epoch time if not provided.
      *
-     * Side effect (Part 4.2):
+     * Side effect :
      * After a successful POST, the parent sensor's currentValue field is
      * updated to match the new reading's value. This ensures data consistency
      * across the API — GET /sensors/{sensorId} always reflects the latest
@@ -77,7 +77,7 @@ public class SensorReadingResource {
     public Response addReading(SensorReading reading) {
         Sensor sensor = store.getSensor(sensorId);
 
-        // Part 5.1 — 403 Forbidden for MAINTENANCE/OFFLINE sensors
+        //  — 403 Forbidden for MAINTENANCE/OFFLINE sensors
         if (!"ACTIVE".equalsIgnoreCase(sensor.getStatus())) {
             throw new SensorUnavailableException(sensorId, sensor.getStatus());
         }

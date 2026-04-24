@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  * Intercepts any unexpected RuntimeException or Error (NullPointerException,
  * IndexOutOfBoundsException, etc.) and returns a clean HTTP 500 response
  * with a generic JSON body. The raw stack trace is NEVER exposed to the
- * client — it is logged server-side only.
+ * client. it is logged server-side only.
  *
  * Security rationale:
  * Exposing raw Java stack traces reveals internal implementation details

@@ -16,7 +16,7 @@ import jakarta.ws.rs.ext.Provider;
  *
  * Why 422 instead of 404:
  * HTTP 404 means the request URI itself could not be found. Here, the URI
- * (/api/v1/sensors) is valid — the problem is a missing reference INSIDE
+ * (/api/v1/sensors) is valid - the problem is a missing reference INSIDE
  * the request payload. HTTP 422 communicates that the server understood
  * the request format (valid JSON) but cannot process it because the
  * content is semantically invalid (the referenced room does not exist).

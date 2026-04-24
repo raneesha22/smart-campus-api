@@ -34,7 +34,7 @@ public class SensorResource {
      *
      * The @QueryParam approach is preferred over path-based filtering
      * (e.g. /sensors/type/CO2) because:
-     * 1. Query parameters are optional by nature — omitting ?type= returns
+     * 1. Query parameters are optional by nature. Omitting ?type= returns
      *    all sensors. A path segment would require a separate endpoint for
      *    the unfiltered list.
      * 2. Multiple filters compose naturally: ?type=CO2&status=ACTIVE.
@@ -56,7 +56,7 @@ public class SensorResource {
     }
 
     /**
-     * POST /sensors — Register a new sensor.
+     * POST /sensors - Register a new sensor.
      *
      * The @Consumes annotation enforces that only application/json payloads
      * are accepted. If a client sends text/plain or application/xml, JAX-RS
@@ -77,7 +77,7 @@ public class SensorResource {
             throw new BadRequestException("Sensor with ID '" + sensor.getId() + "' already exists.");
         }
 
-        // Validate that the referenced room exists (Part 5.2 — 422)
+        // Validate that the referenced room exists 
         if (sensor.getRoomId() == null || !store.roomExists(sensor.getRoomId())) {
             throw new LinkedResourceNotFoundException("room", sensor.getRoomId());
         }
@@ -98,7 +98,7 @@ public class SensorResource {
     }
 
     /**
-     * GET /sensors/{sensorId} — Fetch a single sensor's details.
+     * GET /sensors/{sensorId} - Fetch a single sensor's details.
      */
     @GET
     @Path("/{sensorId}")
@@ -128,7 +128,7 @@ public class SensorResource {
 }
 
     /**
-     * DELETE /sensors/{sensorId} — Remove a sensor.
+     * DELETE /sensors/{sensorId} - Remove a sensor.
      * Also removes the sensor ID from its parent room's sensorIds list.
      */
     @DELETE
@@ -155,20 +155,6 @@ public class SensorResource {
      * The sub-resource locator pattern delegates all requests under
      * /sensors/{sensorId}/readings to a dedicated SensorReadingResource class.
      *
-     * Architectural benefits:
-     * 1. Separation of concerns — reading logic is isolated from sensor logic.
-     *    Each class has a single responsibility.
-     * 2. Scalability — as the readings API grows (pagination, aggregation),
-     *    changes are confined to SensorReadingResource without bloating this class.
-     * 3. Testability — each resource class can be unit tested independently.
-     * 4. Readability — a large monolithic controller with paths like
-     *    /sensors/{id}/readings, /sensors/{id}/readings/{rid},
-     *    /sensors/{id}/readings/latest, etc. becomes unmanageable.
-     *    Delegation keeps each class focused and small.
-     *
-     * Note: This method has NO HTTP method annotation (@GET, @POST, etc.)
-     * That is the hallmark of a sub-resource locator — JAX-RS delegates
-     * HTTP method resolution to the returned resource class.
      */
     @Path("/{sensorId}/readings")
     public SensorReadingResource getReadingsSubResource(@PathParam("sensorId") String sensorId) {

@@ -26,7 +26,7 @@ public class RoomResource {
     private final DataStore store = DataStore.getInstance();
 
     /**
-     * GET /rooms — List all rooms.
+     * GET /rooms - List all rooms.
      * Returns full room objects (not just IDs) so clients have all the
      * information they need in a single request. This trades slightly
      * more bandwidth for fewer round trips, which is the better default
@@ -38,7 +38,7 @@ public class RoomResource {
     }
 
     /**
-     * POST /rooms — Create a new room.
+     * POST /rooms - Create a new room.
      * Returns 201 Created with a Location header pointing to the new resource.
      */
     @POST
@@ -58,7 +58,7 @@ public class RoomResource {
     }
 
     /**
-     * GET /rooms/{roomId} — Fetch detailed metadata for a specific room.
+     * GET /rooms/{roomId} - Fetch detailed metadata for a specific room.
      * Returns 404 if the room does not exist.
      */
     @GET
