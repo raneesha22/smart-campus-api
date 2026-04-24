@@ -11,7 +11,7 @@ A RESTful API for managing campus rooms, sensors, and sensor readings. Built wit
 You need Java 17 and Maven installed.
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/smart-campus-api.git
+git clone https://github.com/raneesha22/smart-campus-api.git
 cd smart-campus-api
 mvn clean package
 java -jar target/smart-campus-api-1.0.0.jar
